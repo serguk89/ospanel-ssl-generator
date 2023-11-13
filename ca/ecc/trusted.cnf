@@ -3,14 +3,14 @@ authorityKeyIdentifier=keyid,issuer:always
 subjectKeyIdentifier=hash 
 basicConstraints=CA:true 
 [ca] 
-dir=c:\openserver\certs\generator\ca\ecc 
+dir=D:\openserver\certs\generator\ca\ecc 
 default_ca=CA_default 
 database=$dir/index.txt 
 default_md=default 
 default_crl_days=30 
 crlnumber=$dir/crlnumber 
 [CA_default] 
-dir=c:\openserver\certs\generator\ca\ecc 
+dir=D:\openserver\certs\generator\ca\ecc 
 certs=$dir 
 crl_dir=$dir 
 database=$dir/index.txt 
