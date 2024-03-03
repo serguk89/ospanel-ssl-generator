@@ -19,7 +19,7 @@ for /f "tokens=*" %%G in ('dir %DOMAINS_DIR% /b') do (
  
 openssl req -sha256 -new -utf8 -key %CA_DIR%\trusted.key -out %TMP_DIR%\%dname%.csr -subj /emailAddress="info\@webdev\.io"/C=RU/stateOrProvinceName="Ukraine"/L=Kyiv/O="Local Server"/OU=Software/CN=localhost
  
-openssl x509 -sha256 -req -days %VALID_DAYS% -in %TMP_DIR%\%dname%.csr -extfile %TMP_DIR%\%dname%.cnf -extensions trust_cert -CA %CA_DIR%\trusted.crt -CAkey %CA_DIR%\trusted.key -out %CERTS_DIR%\%dname%.crt
+openssl x509 -sha256 -req -days %CA_VALID_DAYS% -in %TMP_DIR%\%dname%.csr -extfile %TMP_DIR%\%dname%.cnf -extensions trust_cert -CA %CA_DIR%\trusted.crt -CAkey %CA_DIR%\trusted.key -out %CERTS_DIR%\%dname%.crt
  
 openssl x509 -in %CERTS_DIR%\%dname%.crt -noout -purpose
  

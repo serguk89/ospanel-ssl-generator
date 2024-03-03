@@ -22,9 +22,9 @@ rem echo IP.1 = %domain_ip% >> %TMP_DIR%\%dname%.cnf
 openssl genrsa -out %CERTS_DIR%\%dname%.key %RSA_KEY_BITS%
 openssl req -sha256 -new -utf8 -key %CERTS_DIR%\%dname%.key -out %TMP_DIR%\%dname%.csr -subj /emailAddress=%KEY_EMAIL%/C="%KEY_COUNTRY%"/stateOrProvinceName="%KEY_STATE%"/L="%KEY_CITY%"/O="%KEY_ORG%"/OU="%KEY_ORG_UNIT%"/CN=%dname%
 rem Для создания самоподписанного сертификата
-rem openssl x509 -sha256 -req -days %VALID_DAYS% -in %TMP_DIR%\%dname%.csr -signkey %CERTS_DIR%\%dname%.key -out %CERTS_DIR%\%dname%.crt
+rem openssl x509 -sha256 -req -days %CA_VALID_DAYS% -in %TMP_DIR%\%dname%.csr -signkey %CERTS_DIR%\%dname%.key -out %CERTS_DIR%\%dname%.crt
 rem Для создания сертификата, подписанного доверенным сертификатом
-openssl x509 -sha256 -req -days %VALID_DAYS% -in %TMP_DIR%\%dname%.csr -extfile %TMP_DIR%\%dname%.cnf -extensions trust_cert -CA %CA_DIR%/trusted.crt -CAkey %CA_DIR%/trusted.key -out %CERTS_DIR%\%dname%.crt
+openssl x509 -sha256 -req -days %CA_VALID_DAYS% -in %TMP_DIR%\%dname%.csr -extfile %TMP_DIR%\%dname%.cnf -extensions trust_cert -CA %CA_DIR%/trusted.crt -CAkey %CA_DIR%/trusted.key -out %CERTS_DIR%\%dname%.crt
 
 openssl x509 -in %CERTS_DIR%\%dname%.crt -noout -purpose
 

@@ -19,7 +19,7 @@ openssl genrsa -out %CERTS_DIR%\%cert_name%.key %RSA_KEY_BITS%
 
 openssl req -sha256 -new -utf8 -key %CERTS_DIR%\%cert_name%.key -out %TMP_DIR%\%dname%.csr -subj /emailAddress="info\@webdev\.io"/C=RU/stateOrProvinceName="Ukraine"/L=Kyiv/O="Local Server"/OU=Software/CN=%cname%
  
-openssl x509 -sha256 -req -days %VALID_DAYS% -in %TMP_DIR%\%dname%.csr -extfile %TMP_DIR%\%dname%.cnf -out %CERTS_DIR%\%cert_name%.crt -extensions trust_cert -CA %CA_DIR%\trusted.crt -CAkey %CA_DIR%\trusted.key
+openssl x509 -sha256 -req -days %CA_VALID_DAYS% -in %TMP_DIR%\%dname%.csr -extfile %TMP_DIR%\%dname%.cnf -out %CERTS_DIR%\%cert_name%.crt -extensions trust_cert -CA %CA_DIR%\trusted.crt -CAkey %CA_DIR%\trusted.key
  
 openssl x509 -in %CERTS_DIR%\%cert_name%.crt -noout -purpose
  

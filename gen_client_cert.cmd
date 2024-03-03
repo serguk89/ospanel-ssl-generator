@@ -12,7 +12,7 @@ echo extendedKeyUsage=clientAuth >> %TMP_DIR%\%cname%.cnf
 
 openssl genrsa -out %CERTS_DIR%\%cname%.key %RSA_KEY_BITS%
 openssl req -sha256 -new -utf8 -key %CERTS_DIR%\%cname%.key -out %TMP_DIR%\%cname%.csr -subj /emailAddress=%KEY_EMAIL%/C="%KEY_COUNTRY%"/stateOrProvinceName="%KEY_STATE%"/L="%KEY_CITY%"/O="%KEY_ORG%"/OU="%KEY_ORG_UNIT%"/CN=%cname%
-openssl x509 -sha256 -req -days %VALID_DAYS% -in %TMP_DIR%\%cname%.csr -extfile %TMP_DIR%\%cname%.cnf -extensions trust_cert -CA %CA_DIR%/trusted.crt -CAkey %CA_DIR%/trusted.key -out %CERTS_DIR%\%cname%.crt
+openssl x509 -sha256 -req -days %CA_VALID_DAYS% -in %TMP_DIR%\%cname%.csr -extfile %TMP_DIR%\%cname%.cnf -extensions trust_cert -CA %CA_DIR%/trusted.crt -CAkey %CA_DIR%/trusted.key -out %CERTS_DIR%\%cname%.crt
 
 openssl x509 -in %CERTS_DIR%\%cname%.crt -noout -purpose
 

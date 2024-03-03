@@ -17,10 +17,10 @@ for /f "tokens=*" %%G in ('dir %DOMAINS_DIR% /b') do (
 
 	openssl genrsa -out %CERTS_DIR%\%%G.key %RSA_KEY_BITS%
 	openssl req -sha256 -new -key %CERTS_DIR%\%%G.key -out %TMP_DIR%\%%G.csr -subj /emailAddress=%KEY_EMAIL%/C="%KEY_COUNTRY%"/stateOrProvinceName="%KEY_STATE%"/L="%KEY_CITY%"/O="%KEY_ORG%"/OU="%KEY_ORG_UNIT%"/CN=%%G
-	rem Для создания самоподписанного сертификата
-	rem openssl x509 -sha256 -req -days %VALID_DAYS% -in %TMP_DIR%\%%G.csr -signkey %CERTS_DIR%\%%%G.key -out %CERTS_DIR%\%%%G.crt
-	rem Для создания сертификата, подписанного доверенным сертификатом
-	openssl x509 -sha256 -req -days %VALID_DAYS% -in %TMP_DIR%\%%G.csr -extfile %TMP_DIR%\%%G.cnf -extensions trust_cert -CA %CA_DIR%/trusted.crt -CAkey %CA_DIR%/trusted.key -out %CERTS_DIR%\%%G.crt
+	rem Р”Р»СЏ СЃРѕР·РґР°РЅРёСЏ СЃР°РјРѕРїРѕРґРїРёСЃР°РЅРЅРѕРіРѕ СЃРµСЂС‚РёС„РёРєР°С‚Р°
+	rem openssl x509 -sha256 -req -days %CA_VALID_DAYS% -in %TMP_DIR%\%%G.csr -signkey %CERTS_DIR%\%%%G.key -out %CERTS_DIR%\%%%G.crt
+	rem Р”Р»СЏ СЃРѕР·РґР°РЅРёСЏ СЃРµСЂС‚РёС„РёРєР°С‚Р°, РїРѕРґРїРёСЃР°РЅРЅРѕРіРѕ РґРѕРІРµСЂРµРЅРЅС‹Рј СЃРµСЂС‚РёС„РёРєР°С‚РѕРј
+	openssl x509 -sha256 -req -days %CA_VALID_DAYS% -in %TMP_DIR%\%%G.csr -extfile %TMP_DIR%\%%G.cnf -extensions trust_cert -CA %CA_DIR%/trusted.crt -CAkey %CA_DIR%/trusted.key -out %CERTS_DIR%\%%G.crt
 )
 
 del %TMP_DIR%\*.csr
